@@ -18,5 +18,7 @@
   ],
   "requires": [
     "wittycouchhost"
-  ]
+  ],
+  "group": "games",
+  "summary": "Play the games on any PC running Sunshine, in your browser."
 }
