@@ -54,19 +54,6 @@ var Handlers = map[string]service.Handler{
 		r0, r1, err := gamestream.CleanAddress(a0)
 		return []any{r0, r1}, back, err
 	},
-	"gamestream.Identity.UnmarshalJSON": func(ctx context.Context, rawRecv json.RawMessage, args []json.RawMessage) (rets []any, back any, err error) {
-		var a0 []byte
-		if err := service.Arg(args, 0, &a0); err != nil {
-			return nil, nil, err
-		}
-		var recv gamestream.Identity
-		if err := service.Recv(rawRecv, &recv); err != nil {
-			return nil, nil, err
-		}
-		back = &recv
-		err = recv.UnmarshalJSON(a0)
-		return nil, back, err
-	},
 	"gamestream.LoadOrCreateIdentity": func(ctx context.Context, rawRecv json.RawMessage, args []json.RawMessage) (rets []any, back any, err error) {
 		var a0 string
 		if err := service.Arg(args, 0, &a0); err != nil {
