@@ -1,33 +1,101 @@
-<h1 align="center">WittyCouch</h1>
+# WittyCouch
 
-<p align="center">
-  <b>Play the games on any PC running Sunshine, in your browser.</b><br>
-  A client protocol in Go, a WebRTC relay, and a player with controllers, keyboard, mouse and touch.
-</p>
+Plays the games on any PC running Sunshine, in your browser, through WittyMediaServer. You need it if you, or a friend, have a gaming PC with Sunshine on it.
 
-> **Not an official project.** WittyCouch isn't part of, or made by, the [Moonlight](https://moonlight-stream.org) project or the
-> [Sunshine](https://github.com/LizardByte/Sunshine) project (LizardByte).
+It isn't part of, or made by, the Moonlight or Sunshine projects.
 
-> WittyCouch is developed and released here. Issues and pull requests are welcome.
+## What it does
 
-## What's here
+- **Finds PCs** and pairs with them using a PIN, with the PC's certificate pinned.
+- **Lists a PC's games,** and starts, resumes and quits them. It can wake a PC.
+- **Plays them in the page** with controllers, keyboard, mouse and touch. Frames travel over WebRTC and aren't decoded or re-encoded on the server.
+- **Hands off to the separately installed Moonlight app** on a device that can't play in a page.
+
+Playing needs WittyCouch Host, a separate program. Without it, everything but playing still works. It connects to a PC someone else may run, and what that PC offers isn't provided or checked. No games come with it.
+
+How to use it is in **Help** inside WittyMediaServer: see the game PCs guide.
+
+## How to get it
+
+An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyCouch. That needs WittyMediaServer 0.6.0-alpha or later, and it works with nothing older. The range this version fits is in `module.json`: 0.6.0-alpha through 0.6.x.
+
+Adding it brings WittyCouch Host, which it's built on.
+
+## What it needs
+
+- [WittyCouch Host](https://github.com/wittywilla/WittyCouchHost), which carries the stream.
+- A PC running Sunshine, which you set up yourself.
+- It asks the server for three permissions: network, running programs, and data.
+
+It's built on pion/webrtc and [WittyModule](https://github.com/wittywilla/WittyModule), built in. It's written in Go with no cgo, and the player in `web/` is React.
+
+## Platforms
+
+A real browser, Edge on Windows, has played a real stream from a real Sunshine. Real games on real gaming PCs haven't been tried yet.
+
+A program is built for each system below, and the server uses the right one.
+
+| System | Where it stands |
+|---|---|
+| Linux (x64, arm64, 32-bit ARM, x86) | Its tests pass on x64, and it installs on a test server with its host. The other CPUs are only built |
+| Windows (x64, arm64) | Built. This version hasn't been run on Windows since it became its own program |
+| macOS (Intel, Apple silicon) | Built by the release tool. It has not been run on a real Mac |
+| FreeBSD (amd64, arm64) | Cross-compiled only. It has not been run |
+
+On macOS and FreeBSD the server has no sandbox for a module's helper: it gets a small environment and a soft memory limit, and nothing more.
+
+WittyCouch Host has no FreeBSD build, so on FreeBSD the store says so in place of **Add**. It also has none for 32-bit Linux or Windows on arm64.
+
+## Building and testing
+
+You need Go 1.26 or newer. In a worktree, first run the copy of `dev-modules.mjs` kept above the repositories (`node D:/projects/dev-modules.mjs` on the development machine). It writes a `go.work` that git ignores, so the checkout builds against the repositories beside it. Never run `go work use`.
+
+```bash
+go vet ./...
+```
+
+```bash
+go test ./... -count=1
+```
+
+```bash
+go run github.com/wittywilla/wittymodule/cmd/wittymodule check .
+```
+
+The last one checks the manifest. On the same tool, `pack -targets linux/amd64 -out release .` builds a release for one system. CI also builds for every system.
+
+```bash
+npm install
+```
+
+```bash
+npm run build:bundle
+```
+
+Automated tests run `gamestream` against the stand-in for Sunshine in `gamestream/fake`, and `relay` over real WebRTC with a stand-in for the host program. To test against a real Sunshine:
+
+```bash
+WITTYCOUCH_REAL=127.0.0.1 WITTYCOUCH_USER=name WITTYCOUCH_PASS=secret go test ./gamestream -run TestRealSunshine -v
+```
+
+```bash
+WITTYCOUCH_REAL=127.0.0.1 WITTYCOUCH_USER=name WITTYCOUCH_PASS=secret WITTYCOUCH_HOST=/path/to/wittycouch-host go test ./relay -run TestRealStream -v
+```
 
 | Part | What for |
 |---|---|
-| `gamestream` | A PC's client API: `Browse` finds PCs, `Rig.Pair` the PIN flow with its certificate pinned, `Apps`, `AppImage`, `Launch`, `Resume`, `Quit`, `Wake`, and the rules on which addresses may be reached. `gamestream/fake` is a stand-in for Sunshine, for tests |
-| `relay` | Runs [WittyCouch Host](https://github.com/wittywilla/WittyCouchHost) and carries its frames to a browser over WebRTC, without decoding them, and input back |
-| `web` | The player. Its host app provides the API through `CouchHost` |
-| `plan.go` | What each device can do when it can't play in a page: handing off to the separately installed Moonlight app |
+| `gamestream` | A PC's client API: `Browse`, `Rig.Pair`, `Apps`, `AppImage`, `Launch`, `Resume`, `Quit`, `Wake`, and the rules on which addresses may be reached |
+| `relay` | Runs WittyCouch Host and carries its frames to a browser over WebRTC, and input back |
+| `web` | The player |
+| `plan.go` | What each device can do when it can't play in a page |
 
-## Licences
+`facade.json` lists what the server calls in this module. Changing it means rerunning the generator in WittyModule's `kit/facade`, which writes the stubs on both sides.
 
-**This module is Apache-2.0**: see [LICENSE](LICENSE) and [NOTICE](NOTICE). It's written from the protocol and the browser's APIs, and contains no Moonlight code.
+## Licence
 
-To stream, it starts **WittyCouch Host**, a separate program under the **GPL-3.0**, built on Moonlight's own [moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c). The two exchange only the messages in that program's `PROTOCOL.md`, over pipes. Without it, everything but playing still works.
+Apache-2.0: see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, keep the NOTICE attribution. It contains no Moonlight or Sunshine code. Linked in: pion/webrtc and its dependencies (MIT).
 
-## How it has been tested
-
-Automated tests run `gamestream` against `fake`, and `relay` over real WebRTC with a stand-in for the host program. `gamestream/real_test.go` and `relay/real_test.go` run against a real Sunshine, and a real browser has played a real stream end to end. Real games on real gaming PCs haven't been tried yet: see `docs/GAME-RIGS.md` in WittyMediaServer.
+To stream, it starts WittyCouch Host, a separate program under the GPL-3.0, built on [moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c). The two only exchange the messages in that program's `PROTOCOL.md`, over pipes. Moonlight and Sunshine are GPL-3.0 programs. Each release archive carries a `THIRD-PARTY-NOTICES.txt` for what its programs link.
 
 ## Legal
 
