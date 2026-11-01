@@ -5,5 +5,6 @@ What changed in WittyCouch, newest first. What changed before it had a repositor
 
 ## Unreleased
 
+- The steps for pairing a device name the page as it's called now: Settings, Game PCs.
 - WittyCouch is now a service of its own, with nothing compiled into a server: `wittycouch-module` talks to the computers games run on and holds the streams from them.
 - WittyCouch is now a project of its own, developed and released from this repository.

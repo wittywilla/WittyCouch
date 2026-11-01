@@ -204,6 +204,6 @@ func SetupSteps(os, rigName, address string, port int) []string {
 	steps := []string{"Install Moonlight on this device if it isn't there yet."}
 	steps = append(steps, "Open Moonlight. "+rigName+" should appear by itself on your home network. If it doesn't, add a PC by address and type "+where+".")
 	steps = append(steps, "Choose "+rigName+". Moonlight shows a four-digit PIN.")
-	steps = append(steps, "Ask whoever runs this server to type that PIN in Settings, Game rigs, or type it yourself in Sunshine on that PC.")
+	steps = append(steps, "Ask whoever runs this server to type that PIN in Settings, Game PCs, or type it yourself in Sunshine on that PC.")
 	return steps
 }
