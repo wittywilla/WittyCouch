@@ -46,6 +46,7 @@ func resolveSession(raw json.RawMessage) (*relay.Session, error) {
 }
 
 func init() {
+	service.RegisterErrorType[gamestream.StatusError]("gamestream.StatusError")
 	Handlers["relay.New"] = func(ctx context.Context, _ json.RawMessage, args []json.RawMessage) ([]any, any, error) {
 		var o relay.Options
 		if err := service.Arg(args, 0, &o); err != nil {

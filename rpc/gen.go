@@ -233,15 +233,6 @@ var Handlers = map[string]service.Handler{
 		r0 := recv.WebURL()
 		return []any{r0}, back, err
 	},
-	"gamestream.StatusError.Error": func(ctx context.Context, rawRecv json.RawMessage, args []json.RawMessage) (rets []any, back any, err error) {
-		var recv gamestream.StatusError
-		if err := service.Recv(rawRecv, &recv); err != nil {
-			return nil, nil, err
-		}
-		back = &recv
-		r0 := recv.Error()
-		return []any{r0}, back, err
-	},
 	"gamestream.ValidPIN": func(ctx context.Context, rawRecv json.RawMessage, args []json.RawMessage) (rets []any, back any, err error) {
 		var a0 string
 		if err := service.Arg(args, 0, &a0); err != nil {
