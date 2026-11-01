@@ -79,9 +79,7 @@ func init() {
 		mu.Lock()
 		x.s = s
 		mu.Unlock()
-		return []any{struct {
-			ID string `json:"id"`
-		}{id}}, nil, nil
+		return []any{struct{ Sid string }{id}}, nil, nil
 	}
 	Handlers["relay.Session.Wait"] = func(ctx context.Context, _ json.RawMessage, args []json.RawMessage) ([]any, any, error) {
 		var id string
