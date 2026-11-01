@@ -8,8 +8,7 @@
 > **Not an official project.** WittyCouch isn't part of, or made by, the [Moonlight](https://moonlight-stream.org) project or the
 > [Sunshine](https://github.com/LizardByte/Sunshine) project (LizardByte).
 
-> Read-only mirror of `modules/wittycouch` in [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer),
-> where development happens. Please open issues and pull requests there.
+> WittyCouch is developed and released here. Issues and pull requests are welcome.
 
 ## What's here
 
