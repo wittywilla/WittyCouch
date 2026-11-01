@@ -1,0 +1,11 @@
+{
+  "module": "wittycouch",
+  "rpc": "rpc",
+  "packages": [
+    {"import": "github.com/wittywilla/wittycouch/gamestream", "dir": "gamestream", "name": "gamestream", "out": "internal/couch/gamestream", "outImport": "github.com/wittywilla/wittymediaserver/internal/couch/gamestream"},
+    {"import": "github.com/wittywilla/wittycouch", "dir": ".", "name": "wittycouch", "out": "internal/couch", "outImport": "github.com/wittywilla/wittymediaserver/internal/couch", "manual": ["ManifestJSON"]},
+    {"import": "github.com/wittywilla/wittycouch/relay", "dir": "relay", "name": "relay", "out": "internal/couch/relay", "outImport": "github.com/wittywilla/wittymediaserver/internal/couch/relay",
+     "manual": ["Session","Options","New","CheckProgram","Session.Ended","Session.Input","Session.Video","Session.Audio","Session.Rumble","Session.Event","Host","StartHost","Sink"],
+     "resolve": {"Session": "resolveSession"}}
+  ]
+}

@@ -7,6 +7,7 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/hex"
+	"encoding/json"
 	"encoding/pem"
 	"errors"
 	"math/big"
@@ -25,8 +26,11 @@ const DeviceName = "WittyMediaServer"
 type Identity struct {
 	ID      string // 16 hex characters, sent as uniqueid
 	CertPEM []byte
-	cert    tls.Certificate
-	parsed  *x509.Certificate
+	// Dir is the folder it's kept in, which is how a server names it to this module's service:
+	// the key itself never leaves this side.
+	Dir    string
+	cert   tls.Certificate
+	parsed *x509.Certificate
 }
 
 // NewIdentity makes a new certificate. GameStream expects RSA, and a rig keeps a
@@ -86,7 +90,12 @@ func LoadOrCreateIdentity(dir string) (*Identity, error) {
 	cert, e2 := os.ReadFile(certPath)
 	key, e3 := os.ReadFile(keyPath)
 	if e1 == nil && e2 == nil && e3 == nil {
-		return parseIdentity(string(id), cert, key)
+		got, err := parseIdentity(string(id), cert, key)
+		if err != nil {
+			return nil, err
+		}
+		got.Dir = dir
+		return got, nil
 	}
 	if e1 != nil && !os.IsNotExist(e1) {
 		return nil, e1
@@ -112,6 +121,7 @@ func LoadOrCreateIdentity(dir string) (*Identity, error) {
 			return nil, err
 		}
 	}
+	n.Dir = dir
 	return n, nil
 }
 
@@ -130,4 +140,21 @@ func writeSecret(path string, data []byte) error {
 		return err
 	}
 	return os.Rename(tmp.Name(), path)
+}
+
+// UnmarshalJSON finds an identity by the folder it's kept in.
+func (i *Identity) UnmarshalJSON(b []byte) error {
+	var w struct{ Dir string }
+	if err := json.Unmarshal(b, &w); err != nil {
+		return err
+	}
+	if w.Dir == "" {
+		return nil
+	}
+	got, err := LoadOrCreateIdentity(w.Dir)
+	if err != nil {
+		return err
+	}
+	*i = *got
+	return nil
 }
