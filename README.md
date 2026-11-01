@@ -13,7 +13,7 @@ It isn't part of, or made by, the Moonlight or Sunshine projects.
 
 Playing needs WittyCouch Host, a separate program. Without it, everything but playing still works. It connects to a PC someone else may run, and what that PC offers isn't provided or checked. No games come with it.
 
-How to use it is in **Help** inside WittyMediaServer: see the game PCs guide.
+How to use it is in **Help** inside WittyMediaServer: see Game PCs.
 
 ## How to get it
 
