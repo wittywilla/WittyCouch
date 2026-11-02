@@ -4,6 +4,18 @@ Plays the games on any PC running Sunshine, in your browser, through WittyMediaS
 
 It isn't part of, or made by, the Moonlight or Sunshine projects.
 
+<!-- pictures -->
+
+![The Game PCs page](docs/images/couch-page.webp)
+
+<sub>Game PCs in WittyMediaServer, on a server with none added yet.</sub>
+
+![The Game PCs page in Settings](docs/images/settings-couch.webp)
+
+<sub>Settings, Game PCs, on a server with none added yet.</sub>
+
+<!-- /pictures -->
+
 ## What it does
 
 - **Finds PCs** and pairs with them using a PIN, with the PC's certificate pinned.
