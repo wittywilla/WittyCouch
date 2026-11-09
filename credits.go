@@ -12,8 +12,8 @@ type Credit struct {
 // Credits lists every piece a game stream goes through.
 func Credits() []Credit {
 	return []Credit{
-		{"WittyCouch", "The relay in this server, and the client in your browser", "Apache-2.0", "https://github.com/wittywilla/WittyCouch"},
-		{"WittyCouch Host", "A separate program that speaks to the PC, built on Moonlight's own code", "GPL-3.0", "https://github.com/wittywilla/WittyCouchHost"},
+		{"WittyCouch", "The relay in this server, and the client in your browser", "AGPL-3.0-or-later", "https://github.com/wittywilla/WittyCouch"},
+		{"WittyCouch Host", "A separate program that speaks to the PC, built on Moonlight's own code", "AGPL-3.0-or-later (Moonlight parts GPL-3.0)", "https://github.com/wittywilla/WittyCouchHost"},
 		{"moonlight-common-c", "Moonlight's streaming core, inside WittyCouch Host", "GPL-3.0", "https://github.com/moonlight-stream/moonlight-common-c"},
 		{"ENet", "Reliable messages over UDP, inside moonlight-common-c", "MIT", "https://github.com/cgutman/enet"},
 		{"nanors", "Repairs lost video packets, inside moonlight-common-c", "MIT", "https://github.com/sleepybishop/nanors"},

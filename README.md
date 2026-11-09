@@ -105,9 +105,9 @@ WITTYCOUCH_REAL=127.0.0.1 WITTYCOUCH_USER=name WITTYCOUCH_PASS=secret WITTYCOUCH
 
 ## Licence
 
-Apache-2.0: see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, keep the NOTICE attribution. It contains no Moonlight or Sunshine code. Linked in: pion/webrtc and its dependencies (MIT).
+GNU Affero General Public License v3.0 (or later): see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, please keep the NOTICE attribution. It contains no Moonlight or Sunshine code. Linked in: pion/webrtc and its dependencies (MIT).
 
-To stream, it starts WittyCouch Host, a separate program under the GPL-3.0, built on [moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c). The two only exchange the messages in that program's `PROTOCOL.md`, over pipes. Moonlight and Sunshine are GPL-3.0 programs. Each release archive carries a `THIRD-PARTY-NOTICES.txt` for what its programs link.
+To stream, it starts WittyCouch Host, a separate program under the AGPL-3.0-or-later with Moonlight-derived parts under the GPL-3.0, built on [moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c). The two only exchange the messages in that program's `PROTOCOL.md`, over pipes. Moonlight and Sunshine are GPL-3.0 programs. Each release archive carries a `THIRD-PARTY-NOTICES.txt` for what its programs link.
 
 ## Legal
 
@@ -137,5 +137,5 @@ To release:
 
 To take a version back, run the *withdraw* workflow from the *Actions* tab. It adds the version to a signed list on the release tagged `withdrawals`, which servers read.
 
-Licensed under Apache-2.0: see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+Licensed under AGPL-3.0-or-later: see [LICENSE](LICENSE) and [NOTICE](NOTICE).
 <!-- /module-kit -->
