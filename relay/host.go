@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
+
 // Package relay carries a game stream between the Moonlight host program and a browser. The
 // host program holds Moonlight's GPL-3.0 code and is a separate program, reached only by the
 // messages in WittyCouchHost's PROTOCOL.md: this package contains none of it.

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
+
 // Package gamestream speaks the protocol a Sunshine server offers to its clients: finding a PC,
 // pairing with it, listing what it offers and starting it. Written from the protocol, and talks
 // over the network only: it contains no Sunshine or Moonlight code. See docs/GAME-RIGS.md.

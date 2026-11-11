@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
+
 package wittycouch
 
 // Credit says what a piece is, under what licence, and where its source is, for anywhere that

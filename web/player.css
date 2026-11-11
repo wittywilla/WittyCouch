@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Copyright (C) 2026 WittyWilla and contributors */
 /* The player fills its window. It reads the theme's colours where there is a theme. */
 .ml-root { position: fixed; inset: 0; z-index: 50; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; font: 15px/1.45 system-ui, sans-serif; touch-action: none; }
 .ml-video { width: 100%; height: 100%; object-fit: contain; background: #000; outline: none; }

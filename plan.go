@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
+
 // Package wittycouch gets a person from "Play" to a game running on a PC with Sunshine: it
 // works out what each device can really do, and falls back to the separately installed Moonlight
 // app where a page can't play. The stream goes through relay and the separate WittyCouch Host.

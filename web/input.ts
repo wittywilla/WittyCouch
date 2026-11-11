@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
 // What a browser sends to a PC: controllers, keyboard, mouse. Each message is a type byte and a
 // body, in the protocol in WittyCouchHost's PROTOCOL.md. Written from that protocol
 // and from the browser's own APIs.

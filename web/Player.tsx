@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 WittyWilla and contributors
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import { buttonMessage, keyMessage, moveMessage, padMessage, Pads, positionMessage, scrollMessage, TOUCH_BUTTONS, vkFor } from './input'
 import './player.css'
