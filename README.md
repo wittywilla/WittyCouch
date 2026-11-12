@@ -29,7 +29,7 @@ How to use it is in **Help** inside WittyMediaServer: see Game PCs.
 
 ## How to get it
 
-An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyCouch. That needs WittyMediaServer 0.6.0-alpha or later, and it works with nothing older. The range this version fits is in `module.json`: 0.6.0-alpha through 0.8.x, so WittyMediaServer 0.8.0-alpha included.
+An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyCouch. That needs WittyMediaServer 0.8.0-alpha or later, as this version carries module API 4 (its own server-driven UI, `sdui.json`), and it works with nothing older. The range it fits is in `module.json`: 0.8.0-alpha through 0.8.x.
 
 Adding it brings WittyCouch Host, which it's built on.
 

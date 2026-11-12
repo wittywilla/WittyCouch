@@ -1,0 +1,13 @@
+{
+  "format": "wittymodule-sdui",
+  "formatVersion": 1,
+  "module": "wittycouch",
+  "catalog": 2,
+  "theme": {
+    "scope": "wittycouch",
+    "label": "Game PCs",
+    "tokens": {
+      "accent": "#7F46B8"
+    }
+  }
+}
