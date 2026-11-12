@@ -76,7 +76,18 @@ func (s Start) message() []byte {
 		remote = 1
 	}
 	var b strings.Builder
-	line := func(k, v string) { b.WriteString(k + "=" + v + "\n") }
+	// Some values come from the PC (its versions, its RTSP address). A line break or NUL in
+	// one would start a line of its own, or end the value early, in the host's parser,
+	// which takes the first line with a key: so a PC could set keys written after it.
+	line := func(k, v string) {
+		v = strings.Map(func(r rune) rune {
+			if r == '\n' || r == '\r' || r == 0 {
+				return -1
+			}
+			return r
+		}, v)
+		b.WriteString(k + "=" + v + "\n")
+	}
 	line("address", s.Address)
 	line("appversion", s.AppVersion)
 	line("gfeversion", s.GfeVersion)

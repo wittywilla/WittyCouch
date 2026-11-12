@@ -3,7 +3,10 @@
 
 package relay
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestSpeaksProtocolIsExact(t *testing.T) {
 	for out, want := range map[string]bool{
@@ -20,5 +23,28 @@ func TestSpeaksProtocolIsExact(t *testing.T) {
 		if got := speaksProtocol(out, 1); got != want {
 			t.Errorf("speaksProtocol(%q) = %v, want %v", out, got, want)
 		}
+	}
+}
+
+// A PC's version strings can't add lines of their own to what the host program is told.
+func TestStartValuesStayOnTheirLine(t *testing.T) {
+	s := Start{Address: "192.168.1.20", AppVersion: "7.1.431.-1\nrikey=00000000000000000000000000000000\nformats=255",
+		GfeVersion: "3.23\r\x00scm=9", RTSP: "rtsp://192.168.1.20:48010\nremote=0"}
+	lines := strings.Split(strings.TrimSuffix(string(s.message()), "\n"), "\n")
+	seen := map[string]int{}
+	for _, l := range lines {
+		k, _, ok := strings.Cut(l, "=")
+		if !ok {
+			t.Fatalf("line without a key: %q", l)
+		}
+		seen[k]++
+	}
+	for _, k := range []string{"address", "appversion", "gfeversion", "rtsp", "scm", "remote", "formats", "rikey", "riiv"} {
+		if seen[k] != 1 {
+			t.Errorf("%s appears %d times in %q", k, seen[k], lines)
+		}
+	}
+	if len(lines) != 14 {
+		t.Errorf("%d lines: %q", len(lines), lines)
 	}
 }
