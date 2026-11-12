@@ -8,6 +8,8 @@ import (
 	"os/exec"
 	"strings"
 	"testing"
+
+	"github.com/wittywilla/wittymodule"
 )
 
 func target() Target {
@@ -146,5 +148,17 @@ func TestInstallLinksAreTheProjects(t *testing.T) {
 	}
 	if InstallFor("toaster") != nil {
 		t.Error("toaster")
+	}
+}
+
+func TestManifestFitsThisServer(t *testing.T) {
+	m, err := wittymodule.ParseManifest(ManifestJSON)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, server := range []string{"0.6.0-alpha", "0.8.0-alpha"} {
+		if err := m.Supports(server, wittymodule.MinAPI, wittymodule.API); err != nil {
+			t.Errorf("%s: %v", server, err)
+		}
 	}
 }
