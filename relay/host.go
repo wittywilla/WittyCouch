@@ -291,8 +291,21 @@ func CheckProgram(ctx context.Context, program string, prepare func(*exec.Cmd)) 
 	if err != nil {
 		return fmt.Errorf("the Moonlight host program couldn't run: %w", err)
 	}
-	if !strings.Contains(string(out), "protocol "+strconv.Itoa(ProtocolVersion)) {
+	if !speaksProtocol(string(out), ProtocolVersion) {
 		return errors.New("the Moonlight host program is a different version from this server")
 	}
 	return nil
+}
+
+// speaksProtocol reads `wittycouch-host <version> protocol <number>` and says whether the number
+// is exactly want, so a host of protocol 10 or 12 isn't taken for one of protocol 1.
+func speaksProtocol(out string, want int) bool {
+	f := strings.Fields(out)
+	for i := 0; i+1 < len(f); i++ {
+		if f[i] == "protocol" {
+			n, err := strconv.Atoi(f[i+1])
+			return err == nil && n == want
+		}
+	}
+	return false
 }
