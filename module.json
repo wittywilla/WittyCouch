@@ -7,7 +7,7 @@
   "delivery": "helper",
   "api": 3,
   "minServer": "0.6.0-alpha",
-  "maxServer": "0.6.x",
+  "maxServer": "0.8.x",
   "entry": "wittycouch-module",
   "webEntry": "index.js",
   "webStyle": "style.css",
