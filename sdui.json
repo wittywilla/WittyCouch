@@ -2,7 +2,7 @@
   "format": "wittymodule-sdui",
   "formatVersion": 1,
   "module": "wittycouch",
-  "catalog": 2,
+  "catalog": 8,
   "theme": {
     "scope": "wittycouch",
     "label": "Game PCs",
