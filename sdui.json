@@ -9,5 +9,312 @@
     "tokens": {
       "accent": "#7F46B8"
     }
-  }
+  },
+  "pages": [
+    {
+      "id": "wittycouch",
+      "kind": "custom",
+      "title": "Game PCs",
+      "icon": "devices",
+      "description": "A person's Game PCs on every app: their PCs, opening each one's page, and the PCs on this server's network to add with a press.",
+      "scope": "wittycouch",
+      "sections": [
+        {
+          "id": "intro",
+          "component": "Text",
+          "props": {
+            "text": "Play the games on a PC running Sunshine. Each PC pairs once, with a PIN typed on that PC, and your pairings are yours alone."
+          }
+        },
+        {
+          "id": "pcs",
+          "component": "List",
+          "props": {
+            "empty": "message",
+            "emptyText": "No PCs yet. Find one on this network below.",
+            "focusable": true,
+            "title": "Your PCs"
+          },
+          "source": {
+            "type": "wittycouch.hosts"
+          }
+        },
+        {
+          "id": "found",
+          "component": "List",
+          "props": {
+            "empty": "message",
+            "emptyText": "None answered. A PC elsewhere is added by its address, in a browser.",
+            "focusable": true,
+            "title": "Find PCs on this network"
+          },
+          "source": {
+            "type": "wittycouch.found"
+          }
+        },
+        {
+          "id": "needs",
+          "component": "Notice",
+          "props": {
+            "text": "The PC needs Sunshine, a free program its owner installs. A PC over the internet is added by its address, in a browser.",
+            "tone": "info"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wittycouch-host",
+      "kind": "custom",
+      "title": "{title}",
+      "icon": "devices",
+      "description": "One of a person's Game PCs: wake it, end what's running, pair it with the PIN to type into Sunshine, remove it, and its games. Opened with ?item=<its id>&name=<its name>.",
+      "scope": "wittycouch",
+      "sections": [
+        {
+          "id": "pc",
+          "component": "List",
+          "props": {
+            "empty": "message",
+            "emptyText": "This PC isn't on your list.",
+            "focusable": true,
+            "title": ""
+          },
+          "source": {
+            "host": "$item",
+            "type": "wittycouch.host"
+          }
+        },
+        {
+          "id": "apps",
+          "component": "List",
+          "props": {
+            "empty": "message",
+            "emptyText": "Its games appear once it's paired and on.",
+            "focusable": true,
+            "title": "Games"
+          },
+          "source": {
+            "host": "$item",
+            "type": "wittycouch.apps"
+          }
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "type": "wittycouch.hosts",
+      "label": "Your game PCs",
+      "description": "The person's own PCs running Sunshine, each with how it is (online, running a game, asleep, needs pairing), opening its page. Nothing for a profile this isn't turned on for.",
+      "icon": "devices",
+      "category": "",
+      "yields": [
+        "view"
+      ],
+      "cardStyle": "tile",
+      "paged": false,
+      "title": "Your PCs",
+      "since": 8
+    },
+    {
+      "type": "wittycouch.found",
+      "label": "PCs on this network",
+      "description": "The PCs running Sunshine that answer on this server's network, each with a row that adds it (or says it was added), so no address has to be typed. It looks for a few seconds.",
+      "icon": "search",
+      "category": "",
+      "yields": [
+        "view"
+      ],
+      "cardStyle": "tile",
+      "paged": false,
+      "title": "Find PCs on this network",
+      "since": 8
+    },
+    {
+      "type": "wittycouch.host",
+      "label": "A game PC",
+      "description": "One of the person's PCs: how it is, then what can be done: wake it, end what's running, pair it (with the PIN to type into Sunshine while it waits), remove it.",
+      "icon": "devices",
+      "category": "",
+      "params": [
+        {
+          "name": "host",
+          "type": "ref",
+          "label": "PC",
+          "help": "The PC's ID, $item on its page.",
+          "required": true,
+          "since": 0
+        }
+      ],
+      "yields": [
+        "view"
+      ],
+      "cardStyle": "tile",
+      "paged": false,
+      "since": 8
+    },
+    {
+      "type": "wittycouch.apps",
+      "label": "A game PC's games",
+      "description": "What a paired PC offers, its desktop last. Playing in the page is for browsers: on a TV or phone, a row says to open Moonlight, where the PC appears once it is paired with Moonlight too.",
+      "icon": "game",
+      "category": "",
+      "params": [
+        {
+          "name": "host",
+          "type": "ref",
+          "label": "PC",
+          "help": "The PC's ID, $item on its page.",
+          "required": true,
+          "since": 0
+        }
+      ],
+      "yields": [
+        "view"
+      ],
+      "cardStyle": "tile",
+      "paged": false,
+      "title": "Games",
+      "since": 8
+    }
+  ],
+  "commands": [
+    {
+      "op": "wittycouch.host.add",
+      "label": "Add this PC",
+      "description": "Game PCs: adds a PC running Sunshine to the person's own list (item: its address, as the network found it). It has to answer as Sunshine.",
+      "method": "POST",
+      "path": "/api/modules/wittycouch/hosts",
+      "body": "{\"address\":\"{item}\"}"
+    },
+    {
+      "op": "wittycouch.host.wake",
+      "label": "Wake it up",
+      "description": "Game PCs: sends a wake-up signal to one of the person's PCs (item: its ID).",
+      "method": "POST",
+      "path": "/api/modules/wittycouch/hosts/{item}/wake"
+    },
+    {
+      "op": "wittycouch.host.quit",
+      "label": "End what's running",
+      "description": "Game PCs: ends the game running on one of the person's PCs (item: its ID).",
+      "method": "POST",
+      "path": "/api/modules/wittycouch/hosts/{item}/quit"
+    },
+    {
+      "op": "wittycouch.host.pair",
+      "label": "Pair this PC",
+      "description": "Game PCs: starts pairing one of the person's PCs (item: its ID). The PC's page shows the PIN to type into Sunshine.",
+      "method": "POST",
+      "path": "/api/modules/wittycouch/hosts/{item}/pair"
+    },
+    {
+      "op": "wittycouch.host.pairCancel",
+      "label": "Stop pairing",
+      "description": "Game PCs: stops waiting for a PIN (item: the PC's ID).",
+      "method": "DELETE",
+      "path": "/api/modules/wittycouch/hosts/{item}/pair"
+    },
+    {
+      "op": "wittycouch.host.remove",
+      "label": "Remove",
+      "description": "Game PCs: takes a PC off the person's list (item: its ID). The PC keeps this server on its own list until someone removes it there.",
+      "method": "DELETE",
+      "path": "/api/modules/wittycouch/hosts/{item}"
+    }
+  ],
+  "settings": [
+    {
+      "id": "wittycouch",
+      "title": "Game PCs",
+      "icon": "devices",
+      "groups": [
+        {
+          "title": "Who may connect",
+          "footer": "This has the server connect wherever a person says. It only ever speaks this one protocol. Administrators can always.",
+          "rows": [
+            {
+              "key": "access",
+              "kind": "enum",
+              "label": "Who can use it",
+              "help": "A PC's desktop is outside anything age limits can reach, so Kids and Guest profiles and limited accounts start without this.",
+              "default": "adults",
+              "options": [
+                {
+                  "value": "adults",
+                  "label": "Adult profiles with no limits set"
+                },
+                {
+                  "value": "everyone",
+                  "label": "Everyone, Kids and Guest profiles too"
+                },
+                {
+                  "value": "admins",
+                  "label": "Admins only"
+                }
+              ]
+            },
+            {
+              "key": "private",
+              "kind": "bool",
+              "label": "PCs on this server's own network",
+              "default": true
+            },
+            {
+              "key": "internet",
+              "kind": "bool",
+              "label": "PCs over the internet, such as a friend's",
+              "default": true
+            },
+            {
+              "key": "customPorts",
+              "kind": "bool",
+              "label": "Ports other than Sunshine's usual one",
+              "help": "Off makes it harder to use this to look for what's open on a network.",
+              "default": false
+            },
+            {
+              "key": "maxStreams",
+              "kind": "int",
+              "label": "Streams at once",
+              "help": "Each stream passes through this server at up to its full bitrate.",
+              "default": 2,
+              "min": 1,
+              "max": 16
+            }
+          ]
+        },
+        {
+          "title": "Reaching browsers away from home",
+          "footer": "Nothing needed at home. Never forward Sunshine's own ports, and never port 47990.",
+          "rows": [
+            {
+              "key": "udpPort",
+              "kind": "int",
+              "label": "UDP port",
+              "help": "0: any free port. Choose one to forward on your router, or to publish from a container.",
+              "default": 0,
+              "min": 0,
+              "max": 65535
+            },
+            {
+              "key": "publicIp",
+              "kind": "string",
+              "label": "This server's public address",
+              "default": "",
+              "maxLength": 100
+            },
+            {
+              "key": "stun",
+              "kind": "string",
+              "label": "STUN server",
+              "help": "Empty: nothing leaves your network.",
+              "default": "",
+              "maxLength": 300
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

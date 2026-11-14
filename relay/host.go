@@ -150,6 +150,11 @@ var ErrNoProgram = errors.New("the Moonlight host program isn't installed on thi
 // hostCommand gives the program nothing of this server's, whichever way it's being run.
 func hostCommand(ctx context.Context, prepare func(*exec.Cmd), program string, args ...string) *exec.Cmd {
 	cmd := exec.CommandContext(ctx, program, args...)
+	return prepared(cmd, prepare)
+}
+
+// prepared gives a command nothing of this server's environment, then lets the caller prepare it.
+func prepared(cmd *exec.Cmd, prepare func(*exec.Cmd)) *exec.Cmd {
 	cmd.Env = []string{}
 	if root := os.Getenv("SystemRoot"); root != "" {
 		cmd.Env = append(cmd.Env, "SystemRoot="+root) // Windows sockets don't work without it
@@ -163,10 +168,16 @@ func hostCommand(ctx context.Context, prepare func(*exec.Cmd), program string, a
 // StartHost runs the program. It holds nothing and reads nothing it's not sent: no address,
 // key or user name ever goes on its command line, where other programs could read it.
 func StartHost(program string, prepare func(*exec.Cmd), log *slog.Logger, sink Sink) (*Host, error) {
+	return StartHostWith(program, nil, prepare, log, sink)
+}
+
+// StartHostWith is StartHost for a program that is run with arguments before its own, such as a
+// sandbox's launcher (the server's answer to where a module's program is: path and args).
+func StartHostWith(program string, args []string, prepare func(*exec.Cmd), log *slog.Logger, sink Sink) (*Host, error) {
 	if program == "" {
 		return nil, ErrNoProgram
 	}
-	cmd := hostCommand(context.Background(), prepare, program)
+	cmd := hostCommand(context.Background(), prepare, program, args...)
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
 		return nil, err
@@ -296,9 +307,14 @@ func (h *Host) read() {
 // CheckProgram runs the program once to see that it can run here and speaks this protocol,
 // given as little as it's given to play a game.
 func CheckProgram(ctx context.Context, program string, prepare func(*exec.Cmd)) error {
+	return CheckProgramWith(ctx, program, nil, prepare)
+}
+
+// CheckProgramWith is CheckProgram for a program run with arguments before its own.
+func CheckProgramWith(ctx context.Context, program string, args []string, prepare func(*exec.Cmd)) error {
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
-	out, err := hostCommand(ctx, prepare, program, "--version").Output()
+	out, err := hostCommand(ctx, prepare, program, append(append([]string(nil), args...), "--version")...).Output()
 	if err != nil {
 		return fmt.Errorf("the Moonlight host program couldn't run: %w", err)
 	}

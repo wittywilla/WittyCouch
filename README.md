@@ -27,9 +27,11 @@ Playing needs WittyCouch Host, a separate program. Without it, everything but pl
 
 How to use it is in **Help** inside WittyMediaServer: see Game PCs.
 
+It owns the whole feature (module API 5): its routes at `/api/modules/wittycouch/…`, each person's PCs in its own database, their keys and the PCs' pictures in its own folder, its settings, the Game PCs screens in the web app, and SDUI pages (`wittycouch`, `wittycouch-host`) that every other app draws, the Apple TV and Android TV apps among them.
+
 ## How to get it
 
-An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyCouch. That needs WittyMediaServer 0.8.0-alpha or later, as this version carries module API 4 (its own server-driven UI, `sdui.json`), and it works with nothing older. The range it fits is in `module.json`: 0.8.0-alpha through 0.8.x.
+An admin adds it from the module store inside WittyMediaServer: **Settings → Modules**, then **Browse the store**, then **Add** beside WittyCouch. That needs WittyMediaServer 0.8.0-alpha or later, as this version carries module API 5 (`integration.json`: its routes, screens and data), and it works with nothing older. The range it fits is in `module.json`: 0.8.0-alpha through 0.8.x.
 
 Adding it brings WittyCouch Host, which it's built on.
 
@@ -98,10 +100,13 @@ WITTYCOUCH_REAL=127.0.0.1 WITTYCOUCH_USER=name WITTYCOUCH_PASS=secret WITTYCOUCH
 |---|---|
 | `gamestream` | A PC's client API: `Browse`, `Rig.Pair`, `Apps`, `AppImage`, `Launch`, `Resume`, `Quit`, `Wake`, and the rules on which addresses may be reached |
 | `relay` | Runs WittyCouch Host and carries its frames to a browser over WebRTC, and input back |
-| `web` | The player |
+| `api` | Its routes (`service.Config.HTTP`), its SDUI sources, its lifecycle, and following the server's events |
+| `store` | Its own SQLite database, in the module's data folder |
+| `ui` | Its SDUI (`sdui.json`, written with `go test ./ui -update-sdui`): the Game PCs pages, their sources and commands, and its settings |
+| `web` | The player, and the screens in the web app (`web/app`, `register`) |
 | `plan.go` | What each device can do when it can't play in a page |
 
-`facade.json` lists what the server calls in this module. Changing it means rerunning the generator in WittyModule's `kit/facade`, which writes the stubs on both sides.
+`npm run build:bundle` uses WittyModule's builder (`kit/web/build-bundle.mjs`, from `WITTYMODULE` or `../WittyModule`); `npm test` checks the web part against `integration.json` and the app's shared parts.
 
 ## Licence
 

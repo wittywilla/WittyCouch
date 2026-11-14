@@ -36,6 +36,7 @@ var errEnded = errors.New("this stream has ended")
 // Options set up a session.
 type Options struct {
 	Program  string
+	Args     []string // run before the program's own, when the program is a launcher's (a sandbox)
 	Prepare  func(*exec.Cmd)
 	Start    Start
 	Log      *slog.Logger
@@ -86,7 +87,7 @@ func New(ctx context.Context, opts Options) (*Session, error) {
 		s.frameDur.Store(int64(time.Second) / int64(opts.Start.FPS))
 	}
 	s.audioDur.Store(int64(5 * time.Millisecond))
-	host, err := StartHost(opts.Program, opts.Prepare, opts.Log, s)
+	host, err := StartHostWith(opts.Program, opts.Args, opts.Prepare, opts.Log, s)
 	if err != nil {
 		return nil, err
 	}

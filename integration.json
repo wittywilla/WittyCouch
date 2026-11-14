@@ -1,0 +1,174 @@
+{
+  "format": "wittymodule-integration",
+  "formatVersion": 1,
+  "module": "wittycouch",
+  "host": {
+    "http": ">=1",
+    "web": ">=5",
+    "sdui": ">=8",
+    "host": ">=1"
+  },
+  "feature": "games",
+  "http": [
+    {
+      "path": "/status",
+      "methods": [
+        "GET"
+      ],
+      "auth": "user"
+    },
+    {
+      "path": "/find",
+      "methods": [
+        "GET"
+      ],
+      "auth": "user",
+      "limits": {
+        "time": "30s"
+      }
+    },
+    {
+      "path": "/hosts",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "auth": "user",
+      "limits": {
+        "body": "4KB",
+        "time": "30s"
+      }
+    },
+    {
+      "path": "/hosts/{id}",
+      "methods": [
+        "PATCH",
+        "DELETE"
+      ],
+      "auth": "user",
+      "limits": {
+        "body": "4KB"
+      }
+    },
+    {
+      "path": "/hosts/{id}/pair",
+      "methods": [
+        "GET",
+        "POST",
+        "DELETE"
+      ],
+      "auth": "user",
+      "limits": {
+        "body": "4KB"
+      }
+    },
+    {
+      "path": "/hosts/{id}/apps",
+      "methods": [
+        "GET"
+      ],
+      "auth": "user",
+      "limits": {
+        "time": "2m"
+      }
+    },
+    {
+      "path": "/hosts/{id}/apps/{app}/art",
+      "methods": [
+        "GET"
+      ],
+      "auth": "user",
+      "limits": {
+        "answer": "3MB"
+      }
+    },
+    {
+      "path": "/hosts/{id}/apps/{app}/play",
+      "methods": [
+        "POST"
+      ],
+      "auth": "user",
+      "plays": true,
+      "limits": {
+        "body": "4KB",
+        "time": "2m"
+      }
+    },
+    {
+      "path": "/hosts/{id}/wake",
+      "methods": [
+        "POST"
+      ],
+      "auth": "user"
+    },
+    {
+      "path": "/hosts/{id}/quit",
+      "methods": [
+        "POST"
+      ],
+      "auth": "user",
+      "limits": {
+        "time": "30s"
+      }
+    },
+    {
+      "path": "/sessions/{sid}",
+      "methods": [
+        "GET",
+        "DELETE"
+      ],
+      "auth": "user",
+      "limits": {
+        "time": "30s"
+      }
+    },
+    {
+      "path": "/sessions/{sid}/webrtc",
+      "methods": [
+        "POST"
+      ],
+      "auth": "user",
+      "limits": {
+        "body": "256KB",
+        "time": "45s"
+      }
+    }
+  ],
+  "web": {
+    "routes": [
+      {
+        "path": "/couch",
+        "frame": "app"
+      },
+      {
+        "path": "/couch/:id",
+        "frame": "app"
+      },
+      {
+        "path": "/couch/:id/play/:app",
+        "frame": "fullscreen"
+      }
+    ],
+    "settings": [
+      {
+        "id": "couch",
+        "label": "Game PCs",
+        "admin": true,
+        "after": "remote",
+        "search": [
+          "Sunshine",
+          "Moonlight",
+          "gaming PC",
+          "stream"
+        ]
+      }
+    ]
+  },
+  "data": {
+    "store": "sqlite",
+    "backup": "settings"
+  },
+  "lifecycle": {
+    "uninstall": "ask-keep-data"
+  }
+}

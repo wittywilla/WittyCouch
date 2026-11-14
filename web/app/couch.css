@@ -1,0 +1,25 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/* Copyright (C) 2026 WittyWilla and contributors */
+/* Game PCs: the list, one PC's page and Settings. Colours come from the theme (the app's design
+   tokens), never copies of them; status words stay in the normal text colour. */
+.gm-apps .gm-card .poster { aspect-ratio: 3 / 4; display: flex; align-items: flex-end; justify-content: center; background: none; box-shadow: none; overflow: visible; border-radius: 0; }
+.gm-apps .gm-card .poster::after { content: none; }
+.gm-apps .gm-card .poster img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: var(--r-sm); box-shadow: var(--e-1); }
+.gm-apps .gm-card .poster img:not(.in) { width: 100%; height: 100%; background: var(--bg-3); }
+.rig-method a:not(.btn) { color: inherit; text-decoration: underline; }
+.rig-method { padding: 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg-2); }
+.rig-method h2 { font-size: var(--text-base); margin: 0 0 8px; }
+.rig-method summary { cursor: pointer; }
+.rig-method p:last-child { margin-bottom: 0; }
+.rig-pin { font-size: var(--text-4xl); font-weight: 700; letter-spacing: .25em; margin: 8px 0; font-variant-numeric: tabular-nums; }
+.rig-found { display: grid; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.rig-found li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.rig-apps { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.rig-form { display: grid; gap: 10px; max-width: 480px; }
+.rig-form label { display: grid; gap: 4px; }
+.rig-warn { padding: 10px 12px; margin: 8px 0; border-left: 3px solid var(--danger, var(--accent)); background: var(--bg-2); }
+.rig-row-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.rig-note { padding: 10px 12px; margin: 8px 0; border-left: 3px solid var(--accent); background: var(--bg-2); }
+.rig-method + .rig-method { margin-top: 12px; }
+.rig-method .rig-form, .rig-method details, .rig-method .rig-found { margin-top: 12px; }
+.rig-note a:not(.btn) { color: var(--accent-text); text-decoration: underline; }

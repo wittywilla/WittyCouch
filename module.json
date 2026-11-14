@@ -1,11 +1,13 @@
 {
   "id": "wittycouch",
   "name": "WittyCouch",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "repo": "wittywilla/WittyCouch",
   "license": "AGPL-3.0-or-later",
   "delivery": "helper",
-  "api": 4,
+  "api": 5,
+  "dataFormat": 1,
+  "dataFrom": 1,
   "minServer": "0.8.0-alpha",
   "maxServer": "0.8.x",
   "entry": "wittycouch-module",
@@ -20,5 +22,7 @@
     "wittycouchhost"
   ],
   "group": "games",
-  "summary": "Play the games on any PC running Sunshine, in your browser."
+  "summary": "Play the games on any PC running Sunshine, in your browser.",
+  "updates": "All of it: connecting to PCs, pairing, the streams, its settings, and its screens in the web app and on every app (Game PCs).",
+  "stays": "Nothing: your PCs, pairings and keys are WittyCouch's own, in its data folder."
 }

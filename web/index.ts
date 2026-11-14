@@ -16,7 +16,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// WittyCouch's web half: a player for game streams from any PC running Sunshine. The host app
-// provides the API through CouchHost; the server half is the Go module of the same name.
+// WittyCouch's web half: its screens in the web app (register, module API 5), and the player for
+// game streams from any PC running Sunshine, which a page provides the API to through CouchHost
+// (WittyRigs' shared PCs play through it too). The server half is the Go service of the same name.
 export { default } from './Player'
 export type { CouchHost, StreamInfo, StreamRequest } from './Player'
+export { register } from './app/register'

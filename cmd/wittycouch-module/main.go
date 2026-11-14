@@ -16,22 +16,28 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// Command wittycouch-module is WittyCouch's service: the only way a server reaches it. It talks to
-// the computers games run on, and holds the streams from them. It runs while it's in use, and
-// listens on this machine only. See package service in WittyModule.
+// Command wittycouch-module is WittyCouch's service (module API 5): it answers WittyCouch's own
+// routes, which the server passes on at /api/modules/wittycouch/..., the sources of its SDUI pages,
+// and its lifecycle. It talks to the computers games run on, and holds the streams from them. It
+// runs while it's in use, and listens on this machine only. See package service in WittyModule.
 package main
 
 import (
+	"net/http"
+
 	"github.com/wittywilla/wittycouch"
-	"github.com/wittywilla/wittycouch/rpc"
+	"github.com/wittywilla/wittycouch/api"
+	"github.com/wittywilla/wittymodule/sdui"
 	"github.com/wittywilla/wittymodule/service"
 )
 
 func main() {
 	service.Main(service.Config{
 		Manifest:  wittycouch.ManifestJSON,
-		Handlers:  rpc.Handlers,
-		ErrorCode: rpc.ErrorCode,
-		Busy:      rpc.Busy,
+		Busy:      api.Busy,
+		OnStop:    api.Stop,
+		UI:        sdui.Answers{Items: api.SDUIItems},
+		HTTP:      func(mux *http.ServeMux) { api.Routes(mux); api.Watch() },
+		Lifecycle: api.Lifecycle,
 	})
 }
