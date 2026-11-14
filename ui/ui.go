@@ -118,6 +118,9 @@ func UI() *sdui.Module {
 		list("apps", "Games", sdui.Src(SourceApps, "host", "$item"), "empty", "message", "emptyText", "Its games appear once it's paired and on."))
 	one.Description = "One of a person's Game PCs: wake it, end what's running, pair it with the PIN to type into Sunshine, remove it, and its games. Opened with ?item=<its id>&name=<its name>."
 	m.AddPage(one)
+	// Game PCs in the main menu, under More, on every app (the web app's menu had its own entry).
+	m.AddNav(sdui.NavItem{ID: PageHosts, Type: "page", Page: PageHosts, Label: "Game PCs", Icon: "devices",
+		Placement: map[string]string{"phone": "more", "tablet": "more", "tv": "more", "desktop": "more", "web": "more"}})
 
 	admin := func(key, kind, label, help string, def any, kv ...func(*sdui.SettingRow)) sdui.SettingRow {
 		r := sdui.SettingRow{Key: key, Kind: kind, Label: label, Help: help, Default: def}

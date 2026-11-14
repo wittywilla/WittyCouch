@@ -223,6 +223,22 @@
       "path": "/api/modules/wittycouch/hosts/{item}"
     }
   ],
+  "navigation": [
+    {
+      "id": "wittycouch",
+      "label": "Game PCs",
+      "icon": "devices",
+      "type": "page",
+      "page": "wittycouch",
+      "placement": {
+        "desktop": "more",
+        "phone": "more",
+        "tablet": "more",
+        "tv": "more",
+        "web": "more"
+      }
+    }
+  ],
   "settings": [
     {
       "id": "wittycouch",
