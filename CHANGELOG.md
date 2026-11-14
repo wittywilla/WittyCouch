@@ -3,6 +3,10 @@
 What changed in WittyCouch, newest first. What changed before it had a repository of its own is in the
 [WittyMediaServer changelog](https://github.com/wittywilla/WittyMediaServer/blob/master/CHANGELOG.md).
 
+## 0.4.1
+
+- The first published release on module API 5, with the WittyModule 0.5.4 workflows. The tag v0.4.0 was made with workflows that couldn't build it and was never published.
+
 ## 0.4.0
 
 - **Module API 5 (0.4.0):** WittyCouch owns the whole Game PCs feature, and the server has none of it. Its routes are its own, at `/api/modules/wittycouch/…` (`/status`, `/find`, `/hosts`, `/hosts/{id}` and its `pair`, `apps`, `wake`, `quit`, `/sessions/{sid}`), checked again in its service. Each person's PCs are in its own database, starting empty: nothing is brought over from a server's. Who may use it and where it may connect are its own settings (`access`, `private`, `internet`, `customPorts`, `maxStreams`, `udpPort`, `publicIp`, `stun`). The server says where WittyCouch Host is, and an account that goes takes its PCs, key and pictures with it.
