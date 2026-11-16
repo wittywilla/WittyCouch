@@ -2,6 +2,8 @@
 
 Plays the games on any PC running Sunshine, in your browser, through WittyMediaServer. You need it if you, or a friend, have a gaming PC with Sunshine on it.
 
+It's a module of [WittyMediaServer](https://github.com/wittywilla/WittyMediaServer) ([wittymediaserver.com](https://wittymediaserver.com)). To make a PC's games a library that everyone on the server can be given, use [WittyRigs](https://github.com/wittywilla/WittyRigs), which is built on this.
+
 It isn't part of, or made by, the Moonlight or Sunshine projects.
 
 <!-- pictures -->
@@ -80,6 +82,10 @@ The last one checks the manifest. On the same tool, `pack -targets linux/amd64 -
 
 ```bash
 npm install
+```
+
+```bash
+npm test
 ```
 
 ```bash
