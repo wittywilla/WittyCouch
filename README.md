@@ -120,15 +120,6 @@ GNU Affero General Public License v3.0 (or later): see [LICENSE](LICENSE) and [N
 
 To stream, it starts WittyCouch Host, a separate program under the AGPL-3.0-or-later with Moonlight-derived parts under the GPL-3.0, built on [moonlight-common-c](https://github.com/moonlight-stream/moonlight-common-c). The two only exchange the messages in that program's `PROTOCOL.md`, over pipes. Moonlight and Sunshine are GPL-3.0 programs. Each release archive carries a `THIRD-PARTY-NOTICES.txt` for what its programs link.
 
-## Legal
-
-WittyCouch is an independent open-source project. It isn't associated with, sponsored by or endorsed by
-the Moonlight or Sunshine projects, NVIDIA, or any game publisher. It connects to a PC someone else may
-run, and what that PC offers isn't provided or checked by this project. No games come with it. Any
-third-party names here only describe what it works with, and belong to their owners. It's provided
-“as is”, with no warranty; see [LICENSE](LICENSE). Local law applies to how you use it. This isn't legal
-advice.
-
 <!-- module-kit -->
 ## Releasing
 
@@ -150,3 +141,12 @@ To take a version back, run the *withdraw* workflow from the *Actions* tab. It a
 
 Licensed under AGPL-3.0-or-later: see [LICENSE](LICENSE) and [NOTICE](NOTICE).
 <!-- /module-kit -->
+
+## Legal
+
+WittyCouch is an independent open-source project. It isn't associated with, sponsored by or endorsed by
+the Moonlight or Sunshine projects, NVIDIA, or any game publisher. It connects to a PC someone else may
+run, and what that PC offers isn't provided or checked by this project. No games come with it. Any
+third-party names here only describe what it works with, and belong to their owners. It's provided
+“as is”, with no warranty; see [LICENSE](LICENSE). Local law applies to how you use it. This isn't legal
+advice.
