@@ -3,7 +3,7 @@ module github.com/wittywilla/wittycouch
 go 1.26.0
 
 require (
-	github.com/pion/ice/v4 v4.4.8
+	github.com/pion/ice/v4 v4.4.9
 	github.com/pion/interceptor v0.1.51
 	github.com/pion/rtcp v1.2.20
 	github.com/pion/webrtc/v4 v4.2.26
