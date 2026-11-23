@@ -3,6 +3,10 @@
 What changed in WittyCouch, newest first. What changed before it had a repository of its own is in the
 [WittyMediaServer changelog](https://github.com/wittywilla/WittyMediaServer/blob/master/CHANGELOG.md).
 
+## 0.4.4
+
+- **Updated dependencies:** esbuild from 0.27.7 to 0.28.2; github.com/pion/ice/v4 from 4.4.8 to 4.4.9.
+
 ## 0.4.3
 
 - **A television says what its remote and controller can do.** In TV mode the game screen no longer tells you to click the picture or press Esc, and the game menu says to hold Start, Back and both shoulders, without the computer's key combination.
