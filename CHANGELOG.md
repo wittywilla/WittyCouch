@@ -3,6 +3,15 @@
 What changed in WittyCouch, newest first. What changed before it had a repository of its own is in the
 [WittyMediaServer changelog](https://github.com/wittywilla/WittyMediaServer/blob/master/CHANGELOG.md).
 
+## 0.4.3
+
+- **A television says what its remote and controller can do.** In TV mode the game screen no longer tells you to click the picture or press Esc, and the game menu says to hold Start, Back and both shoulders, without the computer's key combination.
+
+## Developer notes for 0.4.3
+
+- `onTv()` (the server's `html.tv-mode`) gates the keyboard and mouse hint and the menu's key combination in `web/Player.tsx` (docs/TV-MODE.md).
+- `scripts/test-web.mjs` imports the built bundle by file URL, so `npm test` also runs on Windows.
+
 ## 0.4.2
 
 - The README's pictures are retaken from WittyMediaServer 0.8.0-alpha.
