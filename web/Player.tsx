@@ -4,6 +4,9 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { buttonMessage, keyMessage, moveMessage, padMessage, Pads, positionMessage, scrollMessage, TOUCH_BUTTONS, vkFor } from './input'
 import './player.css'
 
+// TV mode (the server marks it on <html>) shows no computer keys: TV-MODE.md.
+const onTv = () => document.documentElement.classList.contains('tv-mode')
+
 // The player: a stream from a PC, in the page. It holds no game logic and knows no server: the
 // page around it provides the API through CouchHost. Everything here is this project's own,
 // and the stream arrives over ordinary WebRTC from the relay.
@@ -342,7 +345,7 @@ export default function CouchPlayer({ host }: { host: CouchHost }) {
       )}
 
       {phase === 'playing' && !captured && !menu && !touchPad && (
-        <div className="ml-hint">Click the picture for keyboard and mouse. <kbd>Esc</kbd> gives them back. {padCount > 0 ? `${padCount} controller${padCount > 1 ? 's' : ''} connected.` : 'A controller works as soon as you press a button on it.'}</div>
+        <div className="ml-hint">{!onTv() && <>Click the picture for keyboard and mouse. <kbd>Esc</kbd> gives them back. </>}{padCount > 0 ? `${padCount} controller${padCount > 1 ? 's' : ''} connected.` : 'A controller works as soon as you press a button on it.'}</div>
       )}
       {poor && phase === 'playing' && <div className="ml-poor" role="status">The connection is struggling. Lower the quality if this keeps up.</div>}
       {phase === 'playing' && !captured && <button className="ml-menu-btn" onClick={() => setMenu(!menu)} aria-expanded={menu}>Menu</button>}
@@ -365,7 +368,7 @@ export default function CouchPlayer({ host }: { host: CouchHost }) {
       {menu && phase === 'playing' && (
         <div className="ml-panel" role="dialog" aria-label="Game menu">
           <h1>{host.title}</h1>
-          <p className="ml-note">Press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>, or hold Start, Back and both shoulders, to open this.</p>
+          <p className="ml-note">{onTv() ? 'Hold Start, Back and both shoulders to open this.' : <>Press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>, or hold Start, Back and both shoulders, to open this.</>}</p>
           <button className="ml-btn primary" autoFocus onClick={() => setMenu(false)}>Back to the game</button>
           <button className="ml-btn" onClick={() => { setTouchPad(!touchPad); setMenu(false) }}>{touchPad ? 'Hide' : 'Show'} the on-screen controller</button>
           <button className="ml-btn" onClick={() => leave(false)}>Leave it running on the PC</button>
