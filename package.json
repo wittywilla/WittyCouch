@@ -1,6 +1,6 @@
 {
   "name": "@wittywilla/wittycouch",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "The browser half of WittyCouch: a player for game streams from any PC running Sunshine, with controllers, keyboard, mouse and touch.",
   "license": "AGPL-3.0-or-later",
   "author": "WittyWilla (https://github.com/wittywilla)",
