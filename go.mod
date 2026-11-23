@@ -38,6 +38,6 @@ require (
 )
 
 require (
-	github.com/wittywilla/wittymodule v0.5.4
+	github.com/wittywilla/wittymodule v0.5.5
 	modernc.org/sqlite v1.62.0
 )
