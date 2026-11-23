@@ -114,6 +114,8 @@ WITTYCOUCH_REAL=127.0.0.1 WITTYCOUCH_USER=name WITTYCOUCH_PASS=secret WITTYCOUCH
 
 `npm run build:bundle` uses WittyModule's builder (`kit/web/build-bundle.mjs`, from `WITTYMODULE` or `../WittyModule`); `npm test` checks the web part against `integration.json` and the app's shared parts.
 
+**Working on a Mac?** Start with WittyMediaServer's [MAC-START-HERE.md](https://github.com/wittywilla/WittyMediaServer/blob/v0.8.1-alpha/MAC-START-HERE.md): what to install, what to clone, and every Mac task in order: this module's is item 7.1 (wittywilla/WittyMediaServer#571).
+
 ## Licence
 
 GNU Affero General Public License v3.0 (or later): see [LICENSE](LICENSE) and [NOTICE](NOTICE). If you redistribute it or build on it, please keep the NOTICE attribution. It contains no Moonlight or Sunshine code. Linked in: pion/webrtc and its dependencies (MIT).
